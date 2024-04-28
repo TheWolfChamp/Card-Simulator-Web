@@ -1,12 +1,14 @@
 import React from "react";
-import { Text, HStack, Link, Spacer } from "@chakra-ui/react";
+import { Text, HStack, Link, Spacer, Hide } from "@chakra-ui/react";
 import NextLink from "next/link";
 
 export default function Footer() {
   return (
     <HStack h="100%">
-      <Text>(c) Brandon Ongtingco and Quyen Huynh</Text>
-      <Spacer />
+      <Hide below="md">
+        <Text>(c) Brandon Ongtingco and Quyen Huynh</Text>
+        <Spacer />
+      </Hide>
       <HStack>
         <Link as={NextLink} href="/privacy">
           Privacy
