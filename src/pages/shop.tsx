@@ -1,46 +1,58 @@
 import React, { useState } from "react";
 import { MainLayout } from "@/components/layouts/MainLayout";
 import {
+  Box,
+  Button,
   Card,
   CardBody,
   CardFooter,
+  Center,
   Divider,
   Flex,
-  Grid,
-  Box,
-  Button,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
   Spacer,
 } from "@chakra-ui/react";
 import Pack from "@/types/pack.types";
 
 export default function ShopPage() {
   // const [packs, setPacks] = useState<Pack[] | null>(null);
+
   const packs = [
     {
+      packId: "pack-id-1",
       packName: "Pokemon Pack",
       imgUrl: "/",
     },
     {
+      packId: "pack-id-2",
       packName: "Pokemon Pack",
       imgUrl: "/",
     },
     {
+      packId: "pack-id-3",
       packName: "Pokemon Pack",
       imgUrl: "/",
     },
     {
+      packId: "pack-id-4",
       packName: "Pokemon Pack",
       imgUrl: "/",
     },
   ];
 
+  const [openPackCount, setOpenPackCount] = useState<number>(0);
+
+  function addPackToCart(index: string, quantity: number) {
+    setOpenPackCount(openPackCount + quantity);
+    console.log(`index: ${index}, quantity: ${quantity}`);
+  }
+
   return (
     <MainLayout>
+      <Center>
+        <Button colorScheme="green" size="lg">
+          {openPackCount ? `Open ${openPackCount} Packs` : "Add Packs to Cart"}
+        </Button>
+      </Center>
       <Flex flexDirection="row" overflowX="visible" gap="1rem" p="4">
         {packs?.map((pack, index) => (
           <Card key={index} w="20%">
@@ -48,23 +60,15 @@ export default function ShopPage() {
             <CardBody>{pack.packName}</CardBody>
             <Divider />
             <CardFooter>
-              <Grid templateColumns=".5fr 1fr 2fr" gap="4px">
-                <Spacer />
-                <NumberInput
-                  defaultValue={1}
-                  min={1}
-                  max={99}
-                  clampValueOnBlur={false}
+              <Spacer />
+              <Center>
+                <Button
+                  colorScheme="blue"
+                  onClick={() => addPackToCart(pack.packId, 1)}
                 >
-                  <NumberInputField />
-                  <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper>
-                </NumberInput>
-                <Button colorScheme="blue">Add to Cart</Button>
-                {/* <Button colorScheme="blue">Buy Now</Button> */}
-              </Grid>
+                  Add to Cart
+                </Button>
+              </Center>
             </CardFooter>
           </Card>
         ))}
